@@ -24,7 +24,6 @@ apply(from = rootProject.file("configuration/checkstyle.gradle"))
 
 group = properties["POM_GROUP"].toString()
 
-
 dependencies {
     implementation(project(":core"))
     implementation(project(":aws-core"))
@@ -72,5 +71,4 @@ dependencies {
 
 android.kotlinOptions {
     jvmTarget = "11"
-
 }
