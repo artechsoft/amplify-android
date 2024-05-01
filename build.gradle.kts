@@ -37,7 +37,6 @@ buildscript {
 }
 
 plugins {
-    `maven-publish`
     alias(libs.plugins.binary.compatibility.validator)
     alias(libs.plugins.kotlin.serialization) apply false
 }
