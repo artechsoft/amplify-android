@@ -17,13 +17,13 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
     id("com.android.library")
     id("kotlin-android")
-    id("maven-publish")
 }
 
 apply(from = rootProject.file("configuration/publishing.gradle"))
 apply(from = rootProject.file("configuration/checkstyle.gradle"))
 
 group = properties["POM_GROUP"].toString()
+
 
 dependencies {
     implementation(project(":core"))
@@ -72,4 +72,5 @@ dependencies {
 
 android.kotlinOptions {
     jvmTarget = "11"
+
 }

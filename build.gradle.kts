@@ -74,6 +74,17 @@ val internalApiAnnotations = listOf(
 
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin="maven-publish")
+
+    configure<PublishingExtension> {
+            publications {
+                create<MavenPublication>("maven") {
+                    groupId = properties["POM_GROUP"].toString()
+                    artifactId = properties["POM_ARTIFACT_ID"].toString()
+                    version = properties["VERSION_NAME"].toString()
+                }
+            }
+    }
 
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         android.set(true)
@@ -103,6 +114,7 @@ subprojects {
     afterEvaluate {
         configureAndroid()
         apply(from = "../kover.gradle")
+
     }
 
     apply(plugin = "org.gradle.test-retry")
