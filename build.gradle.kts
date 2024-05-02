@@ -46,6 +46,9 @@ allprojects {
         maven(url = "https://aws.oss.sonatype.org/content/repositories/snapshots/")
         google()
         mavenCentral()
+        maven {
+            setUrl("https://jitpack.io") //IMPORTANT BIT
+        }
     }
 
     gradle.projectsEvaluated {
@@ -78,11 +81,11 @@ subprojects {
 
     configure<PublishingExtension> {
             publications {
-                create<MavenPublication>("library") {
+                create<MavenPublication>("release") {
                     groupId = properties["POM_GROUP"].toString()
                     artifactId = properties["POM_ARTIFACT_ID"].toString()
                     version = properties["VERSION_NAME"].toString()
-                    from(components.findByName("library"))
+                    from(components.findByName("release"))
                 }
             }
     }
