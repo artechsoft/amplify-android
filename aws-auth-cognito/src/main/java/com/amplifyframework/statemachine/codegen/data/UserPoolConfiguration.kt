@@ -80,7 +80,7 @@ data class UserPoolConfiguration internal constructor(
         init {
             configJson?.run {
                 region = optString(Config.REGION.key).takeUnless { it.isNullOrEmpty() }
-                endpoint = validateEndpoint(optString(Config.ENDPOINT.key).takeUnless { it.isNullOrEmpty() })
+                endpoint = optString(Config.ENDPOINT.key).takeUnless { it.isNullOrEmpty() }
                 poolId = optString(Config.POOL_ID.key).takeUnless { it.isNullOrEmpty() }
                 appClientId = optString(Config.APP_CLIENT_ID.key).takeUnless { it.isNullOrEmpty() }
                 appClientSecret = optString(Config.APP_CLIENT_SECRET.key).takeUnless { it.isNullOrEmpty() }
@@ -89,7 +89,7 @@ data class UserPoolConfiguration internal constructor(
         }
 
         fun region(region: String) = apply { this.region = region }
-        fun endpoint(endpoint: String) = apply { this.endpoint = validateEndpoint(endpoint) }
+        fun endpoint(endpoint: String) = apply { this.endpoint = endpoint }
         fun poolId(poolId: String) = apply { this.poolId = poolId }
         fun appClientId(appClientId: String) = apply { this.appClientId = appClientId }
         fun appClientSecret(appClientSecret: String) = apply { this.appClientSecret = appClientSecret }
