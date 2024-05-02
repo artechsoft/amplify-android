@@ -79,16 +79,16 @@ subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     apply(plugin="maven-publish")
 
-    configure<PublishingExtension> {
-            publications {
-                create<MavenPublication>("release") {
-                    groupId = properties["POM_GROUP"].toString()
-                    artifactId = properties["POM_ARTIFACT_ID"].toString()
-                    version = properties["VERSION_NAME"].toString()
-                    from(components.findByName("release"))
-                }
-            }
-    }
+//    configure<PublishingExtension> {
+//            publications {
+//                create<MavenPublication>("maven") {
+//                    groupId = properties["POM_GROUP"].toString()
+//                    artifactId = properties["POM_ARTIFACT_ID"].toString()
+//                    version = properties["VERSION_NAME"].toString()
+////                    from(components.findByName("library"))
+//                }
+//            }
+//    }
 
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         android.set(true)
