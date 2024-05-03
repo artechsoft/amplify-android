@@ -25,14 +25,12 @@ import org.json.JSONObject
 data class IdentityPoolConfiguration internal constructor(
     val region: String?,
     val poolId: String?,
-    val endpoint: String?,
-
-    ) {
+    val endpoint: String?
+) {
     internal fun toGen1Json() = JSONObject().apply {
         region?.let { put(Config.REGION.key, it) }
         poolId?.let { put(Config.POOL_ID.key, it) }
         endpoint?.let { put(Config.ENDPOINT.key, it) }
-
     }
 
     internal companion object {
@@ -67,14 +65,11 @@ data class IdentityPoolConfiguration internal constructor(
         var region: String? = DEFAULT_REGION
         var poolId: String? = null
         var endpoint: String? = null
-
-
         init {
             configJson?.run {
                 region = optString(Config.REGION.key).takeUnless { it.isNullOrEmpty() }
                 poolId = optString(Config.POOL_ID.key).takeUnless { it.isNullOrEmpty() }
                 endpoint = optString(Config.ENDPOINT.key).takeUnless { it.isNullOrEmpty() }
-
             }
         }
 
@@ -85,8 +80,8 @@ data class IdentityPoolConfiguration internal constructor(
         fun build() = IdentityPoolConfiguration(
             region = region,
             poolId = poolId,
-            endpoint = endpoint,
-            )
+            endpoint = endpoint
+        )
     }
 
     private enum class Config(val key: String) {
@@ -103,6 +98,5 @@ data class IdentityPoolConfiguration internal constructor(
          * Contains identity pool endpoint host.
          */
         ENDPOINT("Endpoint"),
-
     }
 }
