@@ -22,6 +22,7 @@ import aws.sdk.kotlin.services.cognitoidentityprovider.endpoints.CognitoIdentity
 import aws.smithy.kotlin.runtime.client.RequestInterceptorContext
 import aws.smithy.kotlin.runtime.client.endpoints.Endpoint
 import aws.smithy.kotlin.runtime.http.interceptors.HttpInterceptor
+import aws.smithy.kotlin.runtime.net.url.Url
 
 interface AWSCognitoAuthService {
     val cognitoIdentityProviderClient: CognitoIdentityProviderClient?
@@ -51,6 +52,7 @@ interface AWSCognitoAuthService {
             val cognitoIdentityClient = configuration.identityPool?.let { it ->
                 CognitoIdentityClient {
                     this.region = it.region
+                    this.endpointUrl = it.endpoint?.let { endpoint -> Url.parse(endpoint) }
                     this.interceptors += object : HttpInterceptor {
                         override suspend fun modifyBeforeSerialization(context: RequestInterceptorContext<Any>): Any {
                             customPairs.forEach { (key, value) ->

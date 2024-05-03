@@ -24,11 +24,15 @@ import org.json.JSONObject
 @InternalAmplifyApi
 data class IdentityPoolConfiguration internal constructor(
     val region: String?,
-    val poolId: String?
-) {
+    val poolId: String?,
+    val endpoint: String?,
+
+    ) {
     internal fun toGen1Json() = JSONObject().apply {
         region?.let { put(Config.REGION.key, it) }
         poolId?.let { put(Config.POOL_ID.key, it) }
+        endpoint?.let { put(Config.ENDPOINT.key, it) }
+
     }
 
     internal companion object {
@@ -62,20 +66,27 @@ data class IdentityPoolConfiguration internal constructor(
     ) {
         var region: String? = DEFAULT_REGION
         var poolId: String? = null
+        var endpoint: String? = null
+
 
         init {
             configJson?.run {
                 region = optString(Config.REGION.key).takeUnless { it.isNullOrEmpty() }
                 poolId = optString(Config.POOL_ID.key).takeUnless { it.isNullOrEmpty() }
+                endpoint = optString(Config.ENDPOINT.key).takeUnless { it.isNullOrEmpty() }
+
             }
         }
 
         fun region(region: String) = apply { this.region = region }
         fun poolId(poolId: String) = apply { this.poolId = poolId }
+        fun endpoint(endpoint: String) = apply { this.endpoint = endpoint }
+
         fun build() = IdentityPoolConfiguration(
             region = region,
-            poolId = poolId
-        )
+            poolId = poolId,
+            endpoint = endpoint,
+            )
     }
 
     private enum class Config(val key: String) {
@@ -87,6 +98,11 @@ data class IdentityPoolConfiguration internal constructor(
         /**
          * Contains identity pool identifier.
          */
-        POOL_ID("PoolId")
+        POOL_ID("PoolId"),
+        /**
+         * Contains identity pool endpoint host.
+         */
+        ENDPOINT("Endpoint"),
+
     }
 }

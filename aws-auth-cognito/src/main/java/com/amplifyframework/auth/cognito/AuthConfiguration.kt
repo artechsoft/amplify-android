@@ -162,7 +162,7 @@ data class AuthConfiguration internal constructor(
             }
 
             val identityPool = auth.identityPoolId?.let {
-                IdentityPoolConfiguration(region = auth.awsRegion, poolId = it)
+                IdentityPoolConfiguration(region = auth.awsRegion, poolId = it, endpoint = null)
             }
 
             return AuthConfiguration(
